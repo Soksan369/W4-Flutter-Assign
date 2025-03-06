@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_term2_blarbla_car/model/ride/ride_filter.dart';
 import 'package:flutter_term2_blarbla_car/screens/rides/widgets/ride_pref_bar.dart';
 import '../../dummy_data/dummy_data.dart';
 import '../../model/ride/ride.dart';
@@ -23,8 +24,10 @@ class _RidesScreenState extends State<RidesScreen> {
  
   RidePreference currentPreference  = fakeRidePrefs[0];   // TODO 1 :  We should get it from the service
 
-  List<Ride> get matchingRides => RidesService.getRidesFor(currentPreference);
+  RideFilter currentFilter = RideFilter();
 
+  List<Ride> get matchingRides =>
+      RidesService.instance.getRidesFor(currentPreference, currentFilter);
   void onBackPressed() {
     Navigator.of(context).pop();     //  Back to the previous view
   } 

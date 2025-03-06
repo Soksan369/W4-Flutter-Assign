@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_term2_blarbla_car/repository/mock/mock_locations_repository.dart';
 import 'package:flutter_term2_blarbla_car/repository/mock/mock_ride_preferences_repository.dart';
+import 'package:flutter_term2_blarbla_car/repository/mock/mock_rides_repository.dart';
+import 'package:flutter_term2_blarbla_car/screens/rides/rides_screen.dart';
 import 'package:flutter_term2_blarbla_car/service/locations_service.dart';
+import 'package:flutter_term2_blarbla_car/service/rides_service.dart';
 import 'screens/ride_pref/ride_pref_screen.dart';
 import 'service/ride_prefs_service.dart';
 import 'theme/theme.dart';
@@ -12,6 +15,7 @@ void main() {
   RidePrefService.initialize(MockRidePreferencesRepository());
 
   LocationsService.initialize(MockLocationsRepository());
+    RidesService.initialize(MockRidesRepository());
   // 2- Run the UI
   runApp(const MyApp());
 }

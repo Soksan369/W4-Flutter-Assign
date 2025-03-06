@@ -1,4 +1,6 @@
+import 'package:flutter_term2_blarbla_car/model/ride/ride_filter.dart';
 import 'package:flutter_term2_blarbla_car/model/ride_pref/ride_pref.dart';
+import 'package:flutter_term2_blarbla_car/repository/rides_repository.dart';
 
 import '../dummy_data/dummy_data.dart';
 import '../model/ride/ride.dart';
@@ -9,16 +11,39 @@ import '../model/ride/ride.dart';
 ///
 class RidesService {
 
-  static List<Ride> availableRides = fakeRides;  
+  // Private instance
+  static RidesService? _instance;
+
+  // Repository
+  final RidesRepository repository;
+
+  /// Private constructor
+  RidesService._internal(this.repository);
+
+  /// Initialize
+  static void initialize(RidesRepository repository) {
+    if (_instance == null) {
+      _instance = RidesService._internal(repository);
+    } else {
+      throw Exception("Rides Service is already initialized.");
+    }
+  }
+
+  /// Singleton accessor
+  static RidesService get instance {
+    if (_instance == null) {
+      throw Exception(
+          "Rides service is not initialized. Call initialize() first.");
+    }
+    return _instance!;
+  }  
 
 
   ///
   ///  Return the relevant rides, given the passenger preferences
   ///
-  static List<Ride> getRidesFor(RidePreference preferences) {
+  List<Ride> getRidesFor(RidePreference pref, RideFilter? filter) {
+    return repository.getRidesFor(pref, filter);
  
-    // For now, just a test
-    return availableRides.where( (ride) => ride.departureLocation == preferences.departure && ride.arrivalLocation == preferences.arrival).toList();
-  }
- 
+}
 }
